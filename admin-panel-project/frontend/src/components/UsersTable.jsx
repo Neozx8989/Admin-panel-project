@@ -38,6 +38,7 @@ export default function UsersTable () {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
+           <h3>User page</h3>
         <DataGrid
           rows={rows}
           columns={columns}
