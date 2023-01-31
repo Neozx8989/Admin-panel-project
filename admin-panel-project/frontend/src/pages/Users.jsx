@@ -7,11 +7,11 @@ import UsersTable from "../components/UsersTable";
 export default function User () {
 
     return (
-        <>
+        <div>
             <Box sx={{ display: "flex" }}>  
                 <Sidebar/>
                 <UsersTable/>
             </Box>
-        </>
+        </div>
     );
 }

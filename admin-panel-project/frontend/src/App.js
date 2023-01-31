@@ -3,16 +3,20 @@ import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import User from "./pages/Users";
 import Product from "./pages/Product";
+import Navbar from "./components/Navbar";
+import { Box } from "@mui/system";
 
 function App() {
   return (
     <div className="App">
-      <h1>Admin panel project</h1>
+      <Navbar/>
+      <Box>
       <Sidebar/>
       <Routes>
         <Route path="/user" element={<User />} />
         <Route path="/product" element={<Product />} />
       </Routes>
+      </Box>
     </div>
   );
 }
