@@ -16,52 +16,52 @@ import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 200;
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
+const drawerWidth = 200; // Sidebar-ын урт хэмжээ.
+const openedMixin = (theme) => ({ // Sidebar нээгдэх үеийн transition area ///
+  width: drawerWidth,                                                       //
+  transition: theme.transitions.create("width", {                           //
+    easing: theme.transitions.easing.sharp,                                 //
+    duration: theme.transitions.duration.enteringScreen,                    //
+  }),                                                                       //
+  overflowX: "hidden",                                                      //
+});   ////////////////////////////////////////////////////////////////////////                                                                      //
 
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+const closedMixin = (theme) => ({ // Sidebar Хаагдах үеийн transition area ///
+  transition: theme.transitions.create("width", {                           //
+    easing: theme.transitions.easing.sharp,                                 //
+    duration: theme.transitions.duration.leavingScreen,                     //
+  }),                                                                       //
+  overflowX: "hidden",                                                      //
+  width: `calc(${theme.spacing(7)} + 1px)`,                                 //
+  [theme.breakpoints.up("sm")]: {                                           //
+    width: `calc(${theme.spacing(8)} + 1px)`,                               //
+  },                                                                        //
+});  /////////////////////////////////////////////////////////////////////////
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-})); 
+const DrawerHeader = styled("div")(({ theme }) => ({ // Sidebar open and closed arrow icon button area ///
+  display: "flex",                                                                                      //
+  alignItems: "center",                                                                                 //
+  justifyContent: "flex-end",                                                                           //  
+  padding: theme.spacing(0, 1),                                                                         //
+  ...theme.mixins.toolbar,                                                                              //
+}));   ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
+const Drawer = styled(MuiDrawer, {  // Үндсэн Sidebar Эцэг area ////
+  shouldForwardProp: (prop) => prop !== "open",                   //
+})(({ theme, open }) => ({                                        //
+  width: drawerWidth,                                             //
+  flexShrink: 0,                                                  //
+  whiteSpace: "nowrap",                                           //
+  boxSizing: "border-box",                                        //
+  ...(open && {                                                   //
+    ...openedMixin(theme),                                        //
+    "& .MuiDrawer-paper": openedMixin(theme),                     //
+  }),                                                             //
+  ...(!open && {                                                  //
+    ...closedMixin(theme),                                        //
+    "& .MuiDrawer-paper": closedMixin(theme),                     //
+  }),                                                             //
+}));    ////////////////////////////////////////////////////////////
 
 export default function Sidebar() {
   const theme = useTheme();
