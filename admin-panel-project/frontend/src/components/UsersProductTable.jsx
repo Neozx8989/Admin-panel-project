@@ -11,12 +11,28 @@ export default function UsersProductTable () {
 
     const columns = [
         {field: 'id', headerName: ' ID', width: 60 },
-        {field: 'image', headerName: ' Image', width: 180 },
-        {field: 'title', headerName: ' Title', width: 180 },
-        {field: 'subtitle', headerName: ' Subtitle', width: 180 },
-        {field: 'price',  headerName: ' Price', width: 100 },
-        {field: 'rating',  headerName: ' Rating', width: 100 },
-        {field: 'actions',  headerName: ' Actions', width: 100 },
+        {field: 'image', headerName: ' Image', width: 200 },
+        {field: 'title', headerName: ' Title', width: 200 },
+        {field: 'subtitle', headerName: ' Subtitle', width: 200 },
+        {field: 'price',  headerName: ' Price', width: 120 },
+        {field: 'rating',  headerName: ' Rating', width: 130 },
+        {
+          field: 'actions',  headerName: ' Actions', width: 200,
+          renderCell: () => {
+            return (
+              <Box>
+                <Stack direction="row" spacing={3}>
+                  <Button variant='contained' color='success'>
+                    Edit
+                  </Button>
+                  <Button variant='contained' color='error'>
+                    Delete
+                  </Button>
+                </Stack>
+              </Box>
+            )
+          }
+        },
       ];
       
       const rows = [
