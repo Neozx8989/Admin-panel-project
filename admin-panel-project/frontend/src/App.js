@@ -4,8 +4,8 @@ import User from "./pages/Users";
 import Product from "./pages/Product";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import NewUser from "./components/NewUser";
-import NewProduct from "./components/NewProduct";
+import CreateProduct from "./pages/CreateProduct";
+import CreateNewUser from "./pages/CreateNewUser";
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path="/user" element={<User />} />
-        <Route path="user/newuser" element={<NewUser />} />
+        <Route path="user/newuser" element={<CreateNewUser />} />
         <Route path="/product" element={<Product />} />
-        <Route path="product/newproduct" element={<NewProduct />} />
+        <Route path="product/newproduct" element={<CreateProduct />} />
       </Routes>
     </div>
   );
