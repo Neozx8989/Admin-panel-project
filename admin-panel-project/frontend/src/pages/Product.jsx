@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
-import ProductTable from "../components/ProductTable";
 import Sidebar from "../components/Sidebar";
+import UsersProductTable from "../components/UsersProductTable";
 
 export default function Product () {
     return (
         <Box sx={{ display: "flex" }}>  
             <Sidebar/>
-            <ProductTable/>
+            <UsersProductTable/>
         </Box>
     )
 }

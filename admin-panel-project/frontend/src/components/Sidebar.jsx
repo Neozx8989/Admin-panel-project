@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -14,7 +15,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 200; // Sidebar-ын урт хэмжээ.
 const openedMixin = (theme) => ({ // Sidebar нээгдэх үеийн transition area ///
@@ -24,8 +24,7 @@ const openedMixin = (theme) => ({ // Sidebar нээгдэх үеийн transitio
     duration: theme.transitions.duration.enteringScreen,                    //
   }),                                                                       //
   overflowX: "hidden",                                                      //
-});   ////////////////////////////////////////////////////////////////////////                                                                      //
-
+});   ////////////////////////////////////////////////////////////////////////                                                                     
 const closedMixin = (theme) => ({ // Sidebar Хаагдах үеийн transition area ///
   transition: theme.transitions.create("width", {                           //
     easing: theme.transitions.easing.sharp,                                 //
@@ -66,10 +65,9 @@ const Drawer = styled(MuiDrawer, {  // Үндсэн Sidebar Эцэг area ////
 export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
   
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", marginTop: '100px' }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
@@ -77,16 +75,16 @@ export default function Sidebar() {
         </DrawerHeader>
         <Divider />
         <List>
-            <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/user")}}>
-              <ListItemButton>
+            <ListItem disablePadding sx={{ display: "block" }}>
+              <ListItemButton to={"/user"}> 
                 <ListItemIcon><PersonIcon/></ListItemIcon>
                 <ListItemText primary="User" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/product")}}>
-              <ListItemButton>
+            <ListItem disablePadding sx={{ display: "block" }}>
+              <ListItemButton to={"/product"}>
                 <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
-                <ListItemText primary="Product" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="E-commerce" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>
