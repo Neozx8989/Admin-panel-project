@@ -2,13 +2,45 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Box, TextField } from '@mui/material';
+import { Box , useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { tokens } from "../theme/theme.js";
 
 
 
 export default function UsersProductTable () {
+  const URL = "http://localhost:8080/products"
+  const [product, setProduct] = useState([])
 
+  useEffect(() => {
+    fetchAllData();
+  }, [])
+  
+  async function fetchAllData() {
+    const FETCHED_DATA = await fetch(URL);
+    const FETCHED_JSON = await FETCHED_DATA.json();
+    setProduct(FETCHED_JSON.data)
+  }
+
+  async function handleDelete(productId) {
+    console.log("delete", productId);
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: productId,
+      }),
+    };
+    const FETCHED_DATA = await fetch(URL, options);
+    const FETCHED_JSON = await FETCHED_DATA.json();
+    setProduct(FETCHED_JSON.data);
+  }
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
     const columns = [
         {field: 'id', headerName: ' ID', width: 60 },
         {field: 'image', headerName: ' Image', width: 200 },
@@ -18,30 +50,50 @@ export default function UsersProductTable () {
         {field: 'rating',  headerName: ' Rating', width: 130 },
         {
           field: 'actions',  headerName: ' Actions', width: 200,
-          renderCell: () => {
+          renderCell: (params) => {
             return (
-              <Box>
-                <Stack direction="row" spacing={3}>
-                  <Button variant='contained' color='success'>
-                    Edit
-                  </Button>
-                  <Button variant='contained' color='error'>
-                    Delete
-                  </Button>
-                </Stack>
-              </Box>
+              <Box
+              m="40px 0 0 0"
+              height="50vh"
+              sx={{
+                "& .MuiDataGrid-root": {
+                  border: "none",
+                },
+                "& .MuiDataGrid-cell": {
+                  borderBottom: "none",
+                },
+                "& .name-column--cell": {
+                  color: colors.greenAccent[300],
+                },
+                "& .MuiDataGrid-columnHeaders": {
+                  backgroundColor: colors.blueAccent[700],
+                  borderBottom: "none",
+                },
+                "& .MuiDataGrid-virtualScroller": {
+                  backgroundColor: colors.primary[400],
+                },
+                "& .MuiDataGrid-footerContainer": {
+                  borderTop: "none",
+                  backgroundColor: colors.blueAccent[700],
+                },
+                "& .MuiCheckbox-root": {
+                  color: `${colors.greenAccent[400]} !important`,
+                },
+              }}
+            >
+              <DataGrid
+                rows={product}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+              // checkboxSelection
+              />
+            </Box>
             )
           }
         },
       ];
-      
-      const rows = [
-        { id: 1, image: 'ЗУРАГ' ,title: 'Air Jordan', subtitle: 'Low 1 Travis scott', price: '$175', },
-        { id: 2, image: 'ЗУРАГ', title: 'Air Force', subtitle: 'White', price: '$125', disabled: 'Yes'},
-        { id: 3, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
-        { id: 4, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
-        { id: 5, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
-      ];
+   
 
     return (
       <Box style={{width: '1200px', marginTop: "120px", margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
@@ -51,7 +103,7 @@ export default function UsersProductTable () {
           </Stack>
 
           <DataGrid
-            rows={rows}
+            rows={product}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
