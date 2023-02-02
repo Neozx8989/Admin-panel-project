@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
@@ -22,7 +22,7 @@ export default function UsersProductTable () {
             return (
               <Box>
                 <Stack direction="row" spacing={3}>
-                  <Button variant='contained' color='success'>
+                  <Button variant='contained' color='info'>
                     Edit
                   </Button>
                   <Button variant='contained' color='error'>
@@ -37,14 +37,10 @@ export default function UsersProductTable () {
       
       const rows = [
         { id: 1, image: 'ЗУРАГ' ,title: 'Air Jordan', subtitle: 'Low 1 Travis scott', price: '$175', },
-        { id: 2, image: 'ЗУРАГ', title: 'Air Force', subtitle: 'White', price: '$125', disabled: 'Yes'},
-        { id: 3, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
-        { id: 4, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
-        { id: 5, image: 'ЗУРАГ', title: 'Nike Air Max', subtitle: 'White Excee', price: '$149.9', },
       ];
 
     return (
-      <Box style={{width: '1200px', marginTop: "120px", margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
+      <Typography style={{width: '1200px', margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Products</p>
           <Stack spacing={2} direction="row" style={{ marginBottom: '30px', display: 'flex', justifyContent:"space-between"}}>
             <Link to={"newproduct"}><Button variant="contained">CREATE PRODUCT</Button></Link>
@@ -56,7 +52,7 @@ export default function UsersProductTable () {
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection  style={{ height: '400px', width: '100%'}}/>
-      </Box>
+      </Typography>
     )
 
 }

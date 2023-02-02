@@ -22,12 +22,10 @@ export default function UsersTable () {
       
       const rows = [
         { id: 1, lastName: 'Snow', firstName: 'Jon', phonenumber: '+976 99119911', email: 'JonSnow@gmail.com', role: 'User', disabled: 'Yes' },
-        { id: 2, lastName: 'Lannister', firstName: 'Client', phonenumber: '+976 99119911', email: 'Client@gmail.com', role: 'User', disabled: 'Yes'},
-        { id: 3, lastName: 'Lannister', firstName: 'Admin', phonenumber: '+976 99119911', email: 'Admin@gmail.com', role: 'Admin', disabled: 'Yes' },
       ];
 
     return (
-      <Box style={{width: '1200px', marginTop: "120px", margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
+      <Box style={{width: '1200px', margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Users</p>
           <Stack spacing={2} direction="row" style={{ marginBottom: '30px', display: 'flex', justifyContent:"space-between"}}>
             <Link to={"newuser"}><Button variant="contained">New</Button></Link>
