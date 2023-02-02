@@ -67,7 +67,7 @@ export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
   
   return (
-    <Box sx={{ display: "flex", marginTop: '100px' }}>
+    <Box sx={{ display: "flex", marginTop: '60px' }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>

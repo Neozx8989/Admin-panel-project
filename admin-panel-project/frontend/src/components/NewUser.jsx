@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function NewUser() {
         return (
-            <Container sx={{boxShadow:"2px 2px 9px rgba(0, 0, 0, 0.5)", padding:"30px", borderRadius:"7px"}}>
+            <Container sx={{boxShadow:"2px 2px 9px rgba(0, 0, 0, 0.5)", padding:"30px", borderRadius:"7px", marginTop:"60px"}}>
                 <h2>Add New Users</h2>
                 <br/>
                 <form>
