@@ -1,120 +1,49 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Box, Grid, TextField, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import { Container } from "@mui/system";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
+export default function NewProduct() {
+  return (
+    <Container  sx={{boxShadow:"2px 2px 9px rgba(0, 0, 0, 0.5)", padding:"30px", borderRadius:"7px"}}>
+        <h3>New product</h3>
+        <form>
+          <FormControl sx={{ display: "flex", flexDirection: "column", gap: 3, justifyContent: "center", marginBottom: "20px",}}>
 
-const NewProduct = () => {
-    const URL = "http://localhost:8080/products"
-    const newProduct = {
-        title: "",
-        subTitle: "",
-        price: "",
-        description: "",
-        color: "",
-    };
+            <Typography sx={{display: "flex", gap:"40px", alignItems:"center",}}>
+                <label/> Image
+                <TextField name={"image"} type={"text"}/>
+            </Typography>
+            
+            <Typography sx={{display: "flex", gap:"40px", alignItems:"center"}}>
+                <label/> Title
+                <TextField name={"title"} type={"text"}/>
+            </Typography> 
+            
+            <Typography sx={{display: "flex", gap:"40px", alignItems:"center"}}>
+                <label/> Subtitle
+                <TextField name={"subtitle"} type={"text"}/>
+            </Typography> 
+            
+            <Typography sx={{display: "flex", gap:"40px", alignItems:"center"}}>
+                <label/> Price
+                <TextField name={"price"} type={"text"}/>
+            </Typography> 
 
-    const [color, setColor] = React.useState('');
-    const [product, setProduct] = useState([])
-    const [currentProduct, setCurrentProduct] = useState(newProduct)
+            <Typography sx={{display: "flex", gap:"40px", alignItems:"center"}}>
+                <label/> Rating
+                <TextField name={"rating"} type={"number"}/>
+            </Typography>
 
-    useEffect(() => {
-        fetchAllData();
-    }, [])
+          </FormControl>
 
-    async function fetchAllData() {
-        const FETCHED_DATA = await fetch(URL);
-        const FETCHED_JSON = await FETCHED_DATA.json();
-        setProduct(FETCHED_JSON.data)
-    }
-
-
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const postData = {
-            title: e.target.title.value,
-            subTitle: e.target.subTitle.value,
-            price: e.target.price.value,
-            description: e.target.description.value,
-            color: e.target.color.value,
-        }
-        console.log("data", postData);
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postData),
-        }
-
-        const FETCHED_DATA = await fetch(URL, options);
-        const FETCHED_JSON = await FETCHED_DATA.json();
-        setProduct(FETCHED_JSON.data);
-        // setCurrentProduct(newProduct);
-
-    }
-    const handleChange = (event) => {
-        setColor(event.target.value);
-    };
-    return (
-        <Box m="20px" sx={{ width: 550 }}>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={4}>
-                        <Grid item xs={12}>
-                            <TextField name='title' placeholder="Enter Title" id="filled-basic" label="Title" variant="filled" color="secondary" required fullWidth />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField name='subTitle' placeholder="Enter Sub Title" id="filled-basic" label="Subtitle" variant="filled" color="secondary" required fullWidth />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField name='price' placeholder="Enter Price" id="filled-number" label="Price" type="number" InputLabelProps={{ shrink: true, }} variant="filled" color="secondary" required fullWidth />
-                        </Grid>
-                        {/* <Grid item xs={12}>
-                            <TextField placeholder="Enter Discount" id="filled-number" label="Discount" type="number" InputLabelProps={{ shrink: true, }} variant="filled" color="secondary" required fullWidth />
-                        </Grid> */}
-                        <Grid item xs={12}>
-                            <TextField name='description' placeholder="Enter Description" id="filled-basic" label="Description" variant="filled" color="secondary" required fullWidth />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-autowidth-label" color="secondary">Color</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-autowidth-label"
-                                    id="demo-simple-select-autowidth"
-                                    value={color}
-                                    onChange={handleChange}
-                                    label="Color"
-                                    variant="filled"
-                                    color="secondary"
-                                    required
-                                    name='color'
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={"White"}>White</MenuItem>
-                                    <MenuItem value={"Black"}>Black</MenuItem>
-                                    <MenuItem value={"Red"}>Red</MenuItem>
-                                    <MenuItem value={"Blue"}>Blue</MenuItem>
-                                    <MenuItem value={"Yellow"}>Yellow</MenuItem>
-                                    <MenuItem value={"Orange"}>Orange</MenuItem>
-                                    <MenuItem value={"Green"}>Green</MenuItem>
-                                    <MenuItem value={"Pink"}>Pink</MenuItem>
-                                    <MenuItem value={"Purple"}>Purple</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        {/* <Grid item xs={12}>
-                            <TextField placeholder="Enter Rating" id="filled-number" label="Rating" type="number" InputLabelProps={{ shrink: true, }} variant="filled" color="secondary" required fullWidth />
-                        </Grid> */}
-                        <Grid item xs={12}>
-                            <Button type="submit" variant="contained" color="success" fullWidth>Submit</Button>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
-        </Box >
-    )
+          <Typography sx={{ display: "flex", gap: "10px"}}>
+            <Button type="submit" variant={"contained"} color={"success"}>Save</Button>
+            <Link to={"/product"}>
+                <Button type="back" variant={"contained"} color={"primary"}>Back</Button>
+            </Link>
+          </Typography>
+        </form>
+    </Container>
+  );
 }
-export default NewProduct
-
