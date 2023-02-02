@@ -1,6 +1,5 @@
 import { Container } from "@mui/system";
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { Button, FormControl, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function NewProduct() {

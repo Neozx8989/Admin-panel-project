@@ -4,10 +4,24 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-
+import { useState , useEffect } from 'react';
 
 
 export default function UsersTable () {
+
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+   async function fetchAllData () {
+    const FETCHED_DATA = await fetch("http://localhost:8080/users");
+    const FETCHED_JSON = await FETCHED_DATA.json();
+    setUserData(FETCHED_JSON);
+    console.log(FETCHED_JSON);
+   } 
+
 
     const columns = [
         {field: 'firstName', headerName: ' First name', width: 180 },
@@ -20,10 +34,17 @@ export default function UsersTable () {
         {field: 'actions', headerName: ' Actions', width: 100,},
       ];
       
-      const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', phonenumber: '+976 99119911', email: 'JonSnow@gmail.com', role: 'User', disabled: 'Yes' },
-      ];
-
+       userData.map((userData, index) => (
+          <span key={index}> 
+            <span>{index + 1} </span>
+            <span>{userData.firstname}  </span>
+            <span>{userData.lastname} </span>
+            <span>{userData.number} </span>
+            <span>{userData.email} </span>
+          </span>
+        ))
+     
+  
     return (
       <Box style={{width: '1200px', margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Users</p>
@@ -33,7 +54,7 @@ export default function UsersTable () {
           </Stack>
 
           <DataGrid
-            rows={rows}
+          
             columns={columns}
             pageSize={3}
             rowsPerPageOptions={[3]}
