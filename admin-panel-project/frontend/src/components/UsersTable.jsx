@@ -4,12 +4,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useState , useEffect } from 'react';
+import { useEffect } from 'react';
 
 
-export default function UsersTable () {
-
-  const [userData, setUserData] = useState([]);
+export default function UsersTable ({userData, setUserData}) {
 
   useEffect(() => {
     fetchAllData();
@@ -18,32 +16,31 @@ export default function UsersTable () {
    async function fetchAllData () {
     const FETCHED_DATA = await fetch("http://localhost:8080/users");
     const FETCHED_JSON = await FETCHED_DATA.json();
-    setUserData(FETCHED_JSON);
+    setUserData(FETCHED_JSON.users);
     console.log(FETCHED_JSON);
    } 
 
 
     const columns = [
-        {field: 'firstName', headerName: ' First name', width: 180 },
-        {field: 'lastName', headerName: ' Last name', width: 180 },
-        {field: 'phonenumber', headerName: ' Phone Number', width: 180 },
+        {field: 'id', headerName: "ID", width: 200 },
+        {field: 'firstname', headerName: ' First name', width: 180 },
+        {field: 'lastname', headerName: ' Last name', width: 180 },
+        {field: 'number', headerName: ' Phone Number', width: 180 },
         {field: 'email', headerName: ' E-Mail', width: 180 },
         {field: 'role',  headerName: ' Role', width: 100 },
         {field: 'disabled',  headerName: ' Disabled', width: 100 },
         {field: 'avatar',  headerName: ' Avatar', width: 100 },
-        {field: 'actions', headerName: ' Actions', width: 100,},
+        {field: 'actions', headerName: ' Actions', width: 100,
+        renderCell: (params) => {
+          return (
+            <Box>
+              <p>Edit icon</p>
+              <button></button>
+            </Box>
+          )
+        }
+        },
       ];
-      
-       userData.map((userData, index) => (
-          <span key={index}> 
-            <span>{index + 1} </span>
-            <span>{userData.firstname}  </span>
-            <span>{userData.lastname} </span>
-            <span>{userData.number} </span>
-            <span>{userData.email} </span>
-          </span>
-        ))
-     
   
     return (
       <Box style={{width: '1200px', margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
@@ -54,7 +51,7 @@ export default function UsersTable () {
           </Stack>
 
           <DataGrid
-          
+            rows={userData}
             columns={columns}
             pageSize={3}
             rowsPerPageOptions={[3]}

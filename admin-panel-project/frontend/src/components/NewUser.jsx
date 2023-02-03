@@ -2,10 +2,11 @@ import { Container, FormControl, TextField, Typography, Button, FormControlLabel
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function NewUser() {
+export default function NewUser({userData, setUserData}) {
+
   const POST_DATA_URL = "http://localhost:8080/users";
 
-  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:""})
+  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:""});
 
   function handleInput(e){
     const {name, value} = e.target;
@@ -29,8 +30,8 @@ export default function NewUser() {
       body: JSON.stringify(AllInputValue),
     }
     const FETCHED_DATA = await fetch(POST_DATA_URL, res);
-    console.log(FETCHED_DATA);
-    e(FETCHED_DATA);
+    const FETCHED_JSON = await FETCHED_DATA.json()
+    setUserData(FETCHED_JSON.data);
   };
 
         return (

@@ -3,11 +3,11 @@ import * as React from "react";
 import Sidebar from "../components/Sidebar";
 import UsersTable from "../components/UsersTable";
 
-export default function User() {
+export default function User({userData, setUserData}) {
   return (
     <Box>
       <Sidebar />
-      <UsersTable />
+      <UsersTable userData={userData} setUserData={setUserData}/>
     </Box>
   );
 }
