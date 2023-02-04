@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export default function UsersProductTable () {
+export default function ProductList () {
 
     const columns = [
         {field: 'id', headerName: ' ID', width: 60 },
