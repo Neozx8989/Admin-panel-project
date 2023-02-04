@@ -2,17 +2,27 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect , useState } from 'react';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 
 export default function UsersTable ({userData, setUserData}) {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     fetchAllData();
   }, []);
 
+  function handleMenu (event) {
+    setAnchorEl(event.currentTarget);
+  };
+
+  function handleClose () {
+    setAnchorEl(null);
+  };
+  
    async function fetchAllData () {
     const FETCHED_DATA = await fetch("http://localhost:8080/users");
     const FETCHED_JSON = await FETCHED_DATA.json();
@@ -34,8 +44,22 @@ export default function UsersTable ({userData, setUserData}) {
         renderCell: (params) => {
           return (
             <Box>
-              <p>Edit icon</p>
-              <button></button>
+              <MoreVertIcon arial-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onclick={handleMenu} 
+                />
+                <Menu id="menu-appbar" 
+                  anchorEl={anchorEl} 
+                  anchorOrigin={{vertical: "top", horizontal: "right",}}
+                  keepMounted 
+                  transformOrigin={{vertical: "top", horizontal: "right",}} 
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose} >Edit</MenuItem>
+                    <MenuItem onClick={handleClose} >Delete</MenuItem>
+                  </Menu>
             </Box>
           )
         }
