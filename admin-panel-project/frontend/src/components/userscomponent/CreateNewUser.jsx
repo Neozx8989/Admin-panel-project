@@ -1,12 +1,30 @@
-import { Container, FormControl, TextField, Typography, Button, FormControlLabel, Radio, Checkbox } from "@mui/material";
+import { Container, FormControl, TextField, Typography, Button, FormControlLabel, Radio, Checkbox, Snackbar, RadioGroup } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import MuiAlert from "@mui/material/Alert"
+import * as React from 'react';
 
-export default function NewUser({userData, setUserData}) {
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
+export default function CreateNewUser({userData, setUserData}) {
   const POST_DATA_URL = "http://localhost:8080/users";
-
   const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:""});
+  const [open, setOpen] = React.useState(false);
+  const [check, setCheck] = React.useState("No");
+
+  function handleClose (event, reason) {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleCheck () {
+    setCheck("Yes");
+  };
 
   function handleInput(e){
     const {name, value} = e.target;
@@ -15,6 +33,7 @@ export default function NewUser({userData, setUserData}) {
 
   async function handleSubmit (e) {
     e.preventDefault();
+    setOpen(true);
     const AllInputValue = {
       firstname: formValue.firstname,
       lastname: formValue.lastname,
@@ -49,11 +68,18 @@ export default function NewUser({userData, setUserData}) {
                   </FormControl>
 
                     <p>Role</p>
-                    <FormControlLabel value="admin" control={<Radio />} label="admin"/>
-                    <FormControlLabel value="user" control={<Radio />} label="user" />
+                    <RadioGroup row name="role">
+                      <FormControlLabel value="admin" control={<Radio />} label="admin"/>
+                      <FormControlLabel value="user" control={<Radio />} label="user" />
+                    </RadioGroup> 
+                    
                     <br/>
                     <p>Disabled</p>
-                    <FormControlLabel control={<Checkbox />}/>
+                    <FormControlLabel control={<Checkbox />}
+                      onClick={handleCheck}
+                      value={check}
+                      name="isDisabled"
+                    />
                     <br/>
                     <p>Avatar</p>
                     <Button type="submit" variant={"contained"} color={"primary"}>UPLOAD AN IMAGE</Button>
@@ -61,13 +87,23 @@ export default function NewUser({userData, setUserData}) {
                     <TextField label={"Password"} name={"password"} type={"text"} fullWidth={true} sx={{marginTop:"20px", marginBottom:"20px",}}/>
 
                   <Typography sx={{ display: "flex", gap: "15px"}}>
-                    <Button type="submit" variant={"contained"} color={"info"}>Save</Button>
+                    <Button
+                      type="submit" 
+                      variant={"contained"} 
+                      color={"info"}
+                      onClick={handleClose}
+                      >Save</Button>
                     <Button type="back" variant={"outlined"} color={"primary"}>Reset</Button>
                     <Button type="back" variant={"outlined"} color={"primary"}>cansel</Button>
                     <Link to={"/user"}>
                         <Button type="back" variant={"contained"} color={"success"}>Back</Button>
                     </Link>
                   </Typography>
+                  <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                    <Alert severity="success" sx={{width: "100%"}}>
+                      Амжилттай шинэ хэрэглэгч нэмлээ !
+                    </Alert>
+                  </Snackbar>
                 </form>
             </Container>
           );

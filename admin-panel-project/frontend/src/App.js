@@ -1,11 +1,11 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import User from "./pages/Users";
+import User from "./pages/userspage/Users";
 import Product from "./pages/Product";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import CreateProduct from "./pages/CreateProduct";
-import CreateNewUser from "./pages/CreateNewUser";
+import NewUsers from "./pages/userspage/NewUsers";
 import { useState } from "react";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route
           path="user/newuser"
           element={
-            <CreateNewUser userData={userData} setUserData={setUserData} />
+            <NewUsers userData={userData} setUserData={setUserData} />
           }
         />
         <Route path="/product" element={<Product />} />
