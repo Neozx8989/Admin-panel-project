@@ -1,10 +1,10 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import User from "./pages/userspage/Users";
-import Product from "./pages/Product";
+import Product from "./pages/productspage/Product";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import CreateProduct from "./pages/CreateProduct";
+import CreateProduct from "./pages/productspage/CreateProduct";
 import NewUsers from "./pages/userspage/NewUsers";
 import { useState } from "react";
 

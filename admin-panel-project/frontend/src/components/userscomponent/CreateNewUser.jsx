@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function CreateNewUser({userData, setUserData}) {
   const POST_DATA_URL = "http://localhost:8080/users";
-  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:""});
+  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:"", role:"", });
   const [open, setOpen] = React.useState(false);
   const [check, setCheck] = React.useState("No");
 
@@ -93,10 +93,10 @@ export default function CreateNewUser({userData, setUserData}) {
                       color={"info"}
                       onClick={handleClose}
                       >Save</Button>
-                    <Button type="back" variant={"outlined"} color={"primary"}>Reset</Button>
-                    <Button type="back" variant={"outlined"} color={"primary"}>cansel</Button>
+                    <Button variant={"outlined"} color={"primary"}>Reset</Button>
+                    <Button variant={"outlined"} color={"primary"}>cansel</Button>
                     <Link to={"/user"}>
-                        <Button type="back" variant={"contained"} color={"success"}>Back</Button>
+                        <Button variant={"contained"} color={"success"}>Back</Button>
                     </Link>
                   </Typography>
                   <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>

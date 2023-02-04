@@ -41,7 +41,7 @@ export default function UsersTable ({userData, setUserData}) {
         {field: 'disabled',  headerName: ' Disabled', width: 100 },
         {field: 'avatar',  headerName: ' Avatar', width: 100 },
         {field: 'actions', headerName: ' Actions', width: 100,
-        renderCell: (params) => {
+        renderCell: () => {
           return (
             <Box>
               <MoreVertIcon arial-label="account of current user"

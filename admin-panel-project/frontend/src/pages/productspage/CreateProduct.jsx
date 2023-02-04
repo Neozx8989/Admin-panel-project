@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
-import NewProduct from "../components/NewProduct";
-import Sidebar from "../components/Sidebar";
+import NewProduct from "../../components/productscomponent/NewProduct";
+import Sidebar from "../../components/Sidebar";
 
 export default function CreateProduct () {
     return (
