@@ -39,6 +39,8 @@ export default function CreateNewUser({userData, setUserData}) {
       lastname: formValue.lastname,
       number: formValue.number,
       email: formValue.email,
+      role: formValue.role,
+      disabled: formValue.disabled,
     }
 
     const res = {
@@ -69,16 +71,14 @@ export default function CreateNewUser({userData, setUserData}) {
 
                     <p>Role</p>
                     <RadioGroup row name="role">
-                      <FormControlLabel value="admin" control={<Radio />} label="admin"/>
-                      <FormControlLabel value="user" control={<Radio />} label="user" />
+                      <FormControlLabel name={"admin"} value={formValue.admin} onChange={handleInput} control={<Radio />} label="admin"/>
+                      <FormControlLabel  name={"user"} value={formValue.user} onChange={handleInput}  control={<Radio />} label="user" />
                     </RadioGroup> 
                     
                     <br/>
                     <p>Disabled</p>
                     <FormControlLabel control={<Checkbox />}
-                      onClick={handleCheck}
-                      value={check}
-                      name="isDisabled"
+                      onClick={handleCheck} name="disabled" value={formValue.disabled} onChange={handleInput}
                     />
                     <br/>
                     <p>Avatar</p>

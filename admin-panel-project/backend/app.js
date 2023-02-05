@@ -35,6 +35,9 @@ app.post("/users", (request, response) => {
     lastname: request.body.lastname,
     number: request.body.number,
     email: request.body.email,
+    role: request.body.role,
+    disabled: request.body.disabled,
+    avatar: request.body.avatar,
   };
   fs.readFile("./public/data/users.json", "utf-8", (readError, readData) => {
     // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
