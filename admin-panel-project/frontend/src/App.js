@@ -10,6 +10,7 @@ import { useState } from "react";
 
 function App() {
   const [userData, setUserData] = useState([]);
+  const [productData, setProductData] = useState([]);
   return (
     <div className="App">
       <Navbar />

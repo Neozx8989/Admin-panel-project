@@ -10,6 +10,8 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.json());
 
+// ================= USERLIST HESEG =======================
+
 app.get("/users", (request, response) => {
   fs.readFile("./public/data/users.json", "utf-8", (readError, readData) => {
     // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
@@ -70,6 +72,8 @@ app.post("/users", (request, response) => {
   });
 });
 
+
+// ============== DELETE HIIHE HESEG ==============
 app.delete("/users", (request, response) => {
   const body = request.body;
 
@@ -143,6 +147,69 @@ app.delete("/users", (request, response) => {
       );
     });
   });
+
+  // ======================= PRODUCT LIST HESEG =============================
+  app.get("/products", (request, response) => {
+    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+      // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
+      if (readError) {
+        response.json({
+          status: "file reader error",
+          products: [],
+        });
+      }
+      const objectData = JSON.parse(readData);
+  
+      response.json({
+        status: "amjilttai avlaa",
+        products: objectData,
+      });
+    });
+  });
+  
+  app.post("/products", (request, response) => {
+    const newProduct = {
+      id: Date.now().toString(),
+      image: request.body.image,
+      name: request.body.name,
+      description: request.body.description,
+      price: request.body.price,
+      size: request.body.size,
+      color: request.body.color,
+      category: request.body.category,
+    };
+    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+      // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
+      if (readError) {
+        response.json({
+          status: "file does not exist",
+          products: [],
+        });
+      }
+      const dataObject = JSON.parse(readData);
+      dataObject.push(newProduct);
+      console.log(dataObject);
+  
+      fs.writeFile(
+        "./public/data/products.json", // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
+        JSON.stringify(dataObject),
+        (writeError) => {
+          if (writeError) {
+            response.json({
+              status: "Error during file write",
+              products: [],
+            });
+          }
+          response.json({
+            status: "amjilttai",
+            products: dataObject,
+          });
+        }
+      );
+    });
+  });
+  
+  
 
 })
 app.listen(PORT, () => {
