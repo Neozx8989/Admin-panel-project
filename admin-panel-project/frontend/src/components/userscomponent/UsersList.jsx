@@ -2,33 +2,32 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Box, Menu, MenuItem } from '@mui/material';
+import { Box} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect , useState } from 'react';
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { deleteUser } from '../../services/UsersServices';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
+import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined"
+
 
 
 export default function UsersTable ({userData, setUserData}) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const URL = "http://localhost:8080/users";
 
   useEffect(() => {
     fetchAllData();
   }, []);
 
-  function handleMenu (event) {
-    setAnchorEl(event.currentTarget);
-  };
-
-  function handleClose () {
-    setAnchorEl(null);
-  };
-  
    async function fetchAllData () {
     const FETCHED_DATA = await fetch("http://localhost:8080/users");
     const FETCHED_JSON = await FETCHED_DATA.json();
     setUserData(FETCHED_JSON.users);
     console.log(FETCHED_JSON);
    } 
+
+   async function handleDelete(userId) {
+    deleteUser(userId, setUserData, URL)
+   }
 
 
     const columns = [
@@ -40,34 +39,25 @@ export default function UsersTable ({userData, setUserData}) {
         {field: 'role',  headerName: ' Role', width: 100 },
         {field: 'disabled',  headerName: ' Disabled', width: 100 },
         {field: 'avatar',  headerName: ' Avatar', width: 100 },
-        {field: 'actions', headerName: ' Actions', width: 100,
-        renderCell: () => {
+        {field: 'actions', headerName: ' Actions', width: 150,
+        renderCell: (params) => {
           return (
             <Box>
-              <MoreVertIcon arial-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onclick={handleMenu} 
-                />
-                <Menu id="menu-appbar" 
-                  anchorEl={anchorEl} 
-                  anchorOrigin={{vertical: "top", horizontal: "right",}}
-                  keepMounted 
-                  transformOrigin={{vertical: "top", horizontal: "right",}} 
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose} >Edit</MenuItem>
-                    <MenuItem onClick={handleClose} >Delete</MenuItem>
-                  </Menu>
+             <Link to={`/edituser/${params.row.id}`} state={{user: userData.filter((u) => u.id === params.row.id) }}>
+              <Button color="info" variant='outlined'>
+                <AutoFixHighOutlinedIcon/>
+              </Button>
+             </Link>{" "}
+             <Button onClick={() => handleDelete(params.row.id)} color="error" variant="contained">
+                <DeleteOutlineIcon/>
+             </Button>
             </Box>
           )
         }
         },
       ];
-  
     return (
-      <Box style={{width: '1200px', margin: '0 auto', padding: "20px", boxShadow: '1px 2px 5px rgba(0, 0, 0, 0.5)', borderRadius: '7px' }}>     
+    <Box style={{width: '1200px', margin: '0 auto', padding: "20px", borderRadius: '7px', }}>
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Users</p>
           <Stack spacing={2} direction="row" style={{ marginBottom: '30px', display: 'flex', justifyContent:"space-between"}}>
             <Link to={"newuser"}><Button variant="contained">New</Button></Link>
