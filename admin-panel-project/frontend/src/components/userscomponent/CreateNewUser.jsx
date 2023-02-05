@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function CreateNewUser({userData, setUserData}) {
   const POST_DATA_URL = "http://localhost:8080/users";
-  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:"", role:"", });
+  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:"", role:"", admin:"", user:""});
   const [open, setOpen] = React.useState(false);
   const [check, setCheck] = React.useState("No");
 

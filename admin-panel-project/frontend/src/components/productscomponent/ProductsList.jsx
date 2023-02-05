@@ -4,18 +4,36 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
-export default function ProductList () {
+export default function ProductList ({productData , setProductData}) {
+
+  const URL = "http://localhost:8080/users";
+
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+   async function fetchAllData () {
+    const FETCHED_DATA = await fetch("http://localhost:8080/users");
+    const FETCHED_JSON = await FETCHED_DATA.json();
+    setProductData(FETCHED_JSON.products);
+    console.log(FETCHED_JSON);
+   } 
+
+
 
     const columns = [
         {field: 'id', headerName: ' ID', width: 60 },
         {field: 'image', headerName: ' Image', width: 200 },
-        {field: 'title', headerName: ' Title', width: 200 },
-        {field: 'subtitle', headerName: ' Subtitle', width: 200 },
+        {field: 'name', headerName: ' Name', width: 200 },
+        {field: 'description', headerName: ' Description', width: 200 },
         {field: 'price',  headerName: ' Price', width: 120 },
-        {field: 'rating',  headerName: ' Rating', width: 130 },
+        {field: 'size',  headerName: ' Size', width: 120 },
+        {field: 'color',  headerName: ' Color', width: 120 },
+        {field: 'category',  headerName: ' Category', width: 130 },
         {
           field: 'actions',  headerName: ' Actions', width: 200,
           renderCell: () => {
@@ -47,7 +65,7 @@ export default function ProductList () {
           </Stack>
 
           <DataGrid
-            rows={rows}
+            rows={productData}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
