@@ -1,4 +1,4 @@
-import { Container, FormControl, TextField, Typography, Button, FormControlLabel, Radio, Checkbox, Snackbar, RadioGroup } from "@mui/material";
+import { Container, FormControl, TextField, Typography, Button, Snackbar, } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import MuiAlert from "@mui/material/Alert"
@@ -12,7 +12,6 @@ export default function NewProduct({userProductData, setUserProductData}) {
   const POST_DATA_URL = "http://localhost:8080/products";
   const [ formValue, setFormValue] = useState({name:"", price:"", stock:"", size:"", color:"", category:"", description:""});
   const [open, setOpen] = React.useState(false);
-  const [check, setCheck] = React.useState("No");
 
   function handleClose (event, reason) {
     if (reason === "clickaway") {
@@ -20,10 +19,6 @@ export default function NewProduct({userProductData, setUserProductData}) {
     }
 
     setOpen(false);
-  };
-
-  function handleCheck () {
-    setCheck("Yes");
   };
 
   function handleInput(e){

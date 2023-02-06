@@ -2,12 +2,12 @@ import * as React from 'react';
 import { DataGrid, GridSearchIcon } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Autocomplete, Box} from '@mui/material';
+import { Box} from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useEffect , useState } from 'react';
-import { deleteUser } from '../../services/UsersServices';
+import { useEffect } from 'react';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined"
+import { deleteProduct } from '../../services/ProductServices';
 
 
 
@@ -26,7 +26,7 @@ export default function ProductList({userProductData, setUserProductData}) {
    } 
 
    async function handleDelete(productId) {
-    deleteUser(productId, setUserProductData, URL)
+    deleteProduct(productId, setUserProductData, URL)
    }
 
 
@@ -62,14 +62,14 @@ export default function ProductList({userProductData, setUserProductData}) {
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Product List</p>
           <Stack spacing={2} direction="row" style={{ marginBottom: '30px', display: 'flex', justifyContent:"space-between"}}>
             <Link to={"newproduct"}><Button variant="contained"> create product</Button></Link>
-            <GridSearchIcon/>
+           
           </Stack>
 
           <DataGrid
             rows={userProductData}
             columns={columns}
-            pageSize={3}
-            rowsPerPageOptions={[3]}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
             checkboxSelection  style={{ height: '400px', width: '100%'}}/>
       </Box>
     )

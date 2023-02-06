@@ -2,11 +2,11 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import User from "./pages/userspage/Users";
 import Product from "./pages/productspage/Product";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
 import CreateProduct from "./pages/productspage/CreateProduct";
 import NewUsers from "./pages/userspage/NewUsers";
 import { useState } from "react";
+import Home from "./components/Home";
+import EditUser from "./pages/userspage/EditUser";
 
 function App() {
   const [userData, setUserData] = useState([]);
@@ -14,8 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      <Sidebar />
+      <Home/>
       <Routes>
         <Route
           path="/user"
@@ -25,6 +24,7 @@ function App() {
           path="user/newuser"
           element={<NewUsers userData={userData} setUserData={setUserData} />}
         />
+        <Route path="user/edituser" element={<EditUser/>} />
         <Route
           path="/product"
           element={
