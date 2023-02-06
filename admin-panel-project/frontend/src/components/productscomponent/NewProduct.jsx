@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 export default function NewProduct({productData, setProductData}) {
   const POST_DATA_URL = "http://localhost:8080/users";
-  const [ formValue, setFormValue] = useState({firstname:"", lastname:"", number:"", email:"", role:"", admin:"", user:""});
+  const [ formValue, setFormValue] = useState({image:"", title:"", description:"", price:"", size:"", color:"", category:""});
   const [open, setOpen] = React.useState(false);
   const [check, setCheck] = React.useState("No");
 
