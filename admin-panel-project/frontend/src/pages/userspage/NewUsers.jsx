@@ -1,11 +1,11 @@
 import { Box } from "@mui/system";
 import CreateNewUser from "../../components/userscomponent/CreateNewUser";
-import Sidebar from "../../components/Sidebar";
+import Home from "../../components/Home";
 
 export default function NewUser ({userData, setUserData}) {
     return (
         <Box sx={{ display: "flex" }}>
-            <Sidebar/>
+            <Home/>
             <CreateNewUser userData={userData} setUserData={setUserData}/>
         </Box>
     )
