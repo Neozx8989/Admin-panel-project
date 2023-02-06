@@ -11,7 +11,7 @@ import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined"
 
 
 
-export default function ProductList({userData, setUserData}) {
+export default function ProductList({userProductData, SetUserProductData}) {
   const URL = "http://localhost:8080/users";
 
   useEffect(() => {
@@ -21,12 +21,12 @@ export default function ProductList({userData, setUserData}) {
    async function fetchAllData () {
     const FETCHED_DATA = await fetch("http://localhost:8080/users");
     const FETCHED_JSON = await FETCHED_DATA.json();
-    setUserData(FETCHED_JSON.users);
+    SetUserProductData(FETCHED_JSON.products);
     console.log(FETCHED_JSON);
    } 
 
    async function handleDelete(userId) {
-    deleteUser(userId, setUserData, URL)
+    deleteUser(userId, SetUserProductData, URL)
    }
 
 
@@ -44,7 +44,7 @@ export default function ProductList({userData, setUserData}) {
         renderCell: (params) => {
           return (
             <Box>
-             <Link to={`/edituser/${params.row.id}`} state={{user: userData.filter((u) => u.id === params.row.id) }}>
+             <Link to={`/edituser/${params.row.id}`} state={{userProduct: userProductData.filter((u) => u.id === params.row.id) }}>
               <Button color="info" variant='outlined'>
                 <AutoFixHighOutlinedIcon/>
               </Button>
@@ -66,7 +66,7 @@ export default function ProductList({userData, setUserData}) {
           </Stack>
 
           <DataGrid
-            rows={userData}
+            rows={userProductData}
             columns={columns}
             pageSize={3}
             rowsPerPageOptions={[3]}

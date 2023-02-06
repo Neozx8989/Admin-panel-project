@@ -2,11 +2,11 @@ import { Box } from "@mui/system";
 import NewProduct from "../../components/productscomponent/NewProduct";
 import Sidebar from "../../components/Sidebar";
 
-export default function CreateProduct ({userData, setUserData}) {
+export default function CreateProduct ({userProductData, setUserProductData}) {
     return (
         <Box sx={{ display: "flex" }}>
             <Sidebar/>
-            <NewProduct userData={userData} setUserData={setUserData}/>
+            <NewProduct userData={userProductData} setUserData={setUserProductData}/>
         </Box>
     )
 }
