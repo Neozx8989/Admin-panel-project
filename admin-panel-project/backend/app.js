@@ -147,6 +147,69 @@ app.delete("/users", (request, response) => {
     });
   });
 });
+
+// ================= USER PRODUCT HESEG =======================
+
+app.get("/products", (request, response) => {
+  fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+    // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+    if (readError) {
+      response.json({
+        status: "file reader error",
+        products: [],
+      });
+    }
+    const objectData = JSON.parse(readData);
+
+    response.json({
+      status: "amjilttai avlaa",
+      products: objectData,
+    });
+  });
+});
+
+app.post("/products", (request, response) => {
+  const newUserProduct = {
+    id: Date.now().toString(),
+    name: request.body.name,
+    price: request.body.price,
+    stock: request.body.stock,
+    size: request.body.size,
+    color: request.body.color,
+    category: request.body.category,
+    description: request.body.description,
+  };
+  fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+    // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+    if (readError) {
+      response.json({
+        status: "file does not exist",
+        products: [],
+      });
+    }
+    const dataObject = JSON.parse(readData);
+    dataObject.push(newUserProduct);
+    console.log(dataObject);
+
+    fs.writeFile(
+      "./public/data/products.json", // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+      JSON.stringify(dataObject),
+      (writeError) => {
+        if (writeError) {
+          response.json({
+            status: "Error during file write",
+            products: [],
+          });
+        }
+        response.json({
+          status: "amjilttai",
+          products: dataObject,
+        });
+      }
+    );
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
