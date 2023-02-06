@@ -22,12 +22,26 @@ function App() {
         />
         <Route
           path="user/newuser"
+          element={<NewUsers userData={userData} setUserData={setUserData} />}
+        />
+        <Route
+          path="/product"
           element={
-            <NewUsers userData={userData} setUserData={setUserData} />
+            <Product
+              productData={productData}
+              setProductData={setProductData}
+            />
           }
         />
-        <Route path="/product" element={<Product />} />
-        <Route path="product/newproduct" element={<CreateProduct />} />
+        <Route
+          path="product/newproduct"
+          element={
+            <CreateProduct
+              productData={productData}
+              setProductData={setProductData}
+            />
+          }
+        />
       </Routes>
     </div>
   );
