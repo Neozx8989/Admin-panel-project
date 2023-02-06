@@ -152,7 +152,7 @@ app.delete("/users", (request, response) => {
 
 app.get("/products", (request, response) => {
   fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
-    // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+    // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
     if (readError) {
       response.json({
         status: "file reader error",
@@ -180,7 +180,7 @@ app.post("/products", (request, response) => {
     description: request.body.description,
   };
   fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
-    // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+    // zaawal public dotor data dotor product gdg json bga gdgig zaaj uguh ystoi !!!
     if (readError) {
       response.json({
         status: "file does not exist",
@@ -192,7 +192,7 @@ app.post("/products", (request, response) => {
     console.log(dataObject);
 
     fs.writeFile(
-      "./public/data/products.json", // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
+      "./public/data/products.json", // zaawal public dotor data dotor product gdg json bga gdgig zaaj uguh ystoi !!!
       JSON.stringify(dataObject),
       (writeError) => {
         if (writeError) {

@@ -6,7 +6,7 @@ export default function Product ({userProductData, setUserProductData}) {
     return (
         <Box sx={{ display: "flex", marginTop: "60px", }}>  
             <Sidebar/>
-            <ProductList userData={userProductData} setUserData={setUserProductData}/>
+            <ProductList userProductData={userProductData} setUserProductData={setUserProductData}/>
         </Box>
     )
 }
