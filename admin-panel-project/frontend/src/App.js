@@ -10,7 +10,7 @@ import { useState } from "react";
 
 function App() {
   const [userData, setUserData] = useState([]);
-  const [productData, setProductData] = useState([]);
+
   return (
     <div className="App">
       <Navbar />
@@ -26,20 +26,12 @@ function App() {
         />
         <Route
           path="/product"
-          element={
-            <Product
-              productData={productData}
-              setProductData={setProductData}
-            />
-          }
+          element={<Product userData={userData} setUserData={setUserData} />}
         />
         <Route
           path="product/newproduct"
           element={
-            <CreateProduct
-              productData={productData}
-              setProductData={setProductData}
-            />
+            <CreateProduct userData={userData} setUserData={setUserData} />
           }
         />
       </Routes>

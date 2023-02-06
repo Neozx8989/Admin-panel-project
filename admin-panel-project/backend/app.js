@@ -72,19 +72,18 @@ app.post("/users", (request, response) => {
   });
 });
 
-
 // ============== DELETE HIIHE HESEG ==============
 app.delete("/users", (request, response) => {
   const body = request.body;
 
-  fs.readFile("./public/data/users.json" , "utf-8" , (readError, readData) => {
-    if(readError) {
+  fs.readFile("./public/data/users.json", "utf-8", (readError, readData) => {
+    if (readError) {
       response.json({
         status: "file reader error",
         users: [],
       });
     }
-    
+
     const readObject = JSON.parse(readData);
     const filteredObject = readObject.filter((o) => o.id !== body.userId);
 
@@ -92,7 +91,7 @@ app.delete("/users", (request, response) => {
       "./public/data/users.json",
       JSON.stringify(filteredObject),
       (writeError) => {
-        if(writeError) {
+        if (writeError) {
           response.json({
             status: "error during write file",
             users: [],
@@ -103,12 +102,12 @@ app.delete("/users", (request, response) => {
           users: filteredObject,
         });
       }
-      )
-  })
+    );
+  });
 
   app.put("/users", (request, response) => {
     const body = request.body;
-  
+
     fs.readFile("./public/data/users.json", "utf-8", (readError, readData) => {
       if (readError) {
         response.json({
@@ -116,19 +115,19 @@ app.delete("/users", (request, response) => {
           users: [],
         });
       }
-  
+
       const savedData = JSON.parse(readData);
-  
+
       const changedData = savedData.map((d) => {
         if (d.id === body.id) {
           (d.firstname = body.firstname),
-          (d.lastname = body.lastname),
-          (d.email = body.email),
-          (d.phonenumber = body.phonenumber);
+            (d.lastname = body.lastname),
+            (d.email = body.email),
+            (d.phonenumber = body.phonenumber);
         }
         return d;
       });
-  
+
       fs.writeFile(
         "./public/data/users.json",
         JSON.stringify(changedData),
@@ -147,71 +146,7 @@ app.delete("/users", (request, response) => {
       );
     });
   });
-
-  // ======================= PRODUCT LIST HESEG =============================
-  app.get("/products", (request, response) => {
-    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
-      // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
-      if (readError) {
-        response.json({
-          status: "file reader error",
-          products: [],
-        });
-      }
-      const objectData = JSON.parse(readData);
-  
-      response.json({
-        status: "amjilttai avlaa",
-        products: objectData,
-      });
-    });
-  });
-  
-  app.post("/products", (request, response) => {
-    const newProduct = {
-      id: Date.now().toString(),
-      image: request.body.image,
-      name: request.body.name,
-      description: request.body.description,
-      price: request.body.price,
-      size: request.body.size,
-      color: request.body.color,
-      category: request.body.category,
-    };
-    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
-      // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
-      if (readError) {
-        response.json({
-          status: "file does not exist",
-          products: [],
-        });
-      }
-      const dataObject = JSON.parse(readData);
-      dataObject.push(newProduct);
-      console.log(dataObject);
-  
-      fs.writeFile(
-        "./public/data/products.json", // zaawal public dotor data dotor products gdg json bga gdgig zaaj uguh ystoi !!!
-        JSON.stringify(dataObject),
-        (writeError) => {
-          if (writeError) {
-            response.json({
-              status: "Error during file write",
-              products: [],
-            });
-          }
-          response.json({
-            status: "amjilttai",
-            products: dataObject,
-          });
-        }
-      );
-    });
-  });
-  
-  
-
-})
+});
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
