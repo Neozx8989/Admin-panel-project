@@ -210,6 +210,85 @@ app.post("/products", (request, response) => {
   });
 });
 
+// ============== PRODUCT DELETE HIIH HESEG ==============
+app.delete("/products", (request, response) => {
+  const body = request.body;
+
+  fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+    if (readError) {
+      response.json({
+        status: "file reader error",
+        products: [],
+      });
+    }
+
+    const readObject = JSON.parse(readData);
+    const filteredObject = readObject.filter((o) => o.id !== body.productId);
+
+    fs.writeFile(
+      "./public/data/products.json",
+      JSON.stringify(filteredObject),
+      (writeError) => {
+        if (writeError) {
+          response.json({
+            status: "error during write file",
+            products: [],
+          });
+        }
+        response.json({
+          status: "Amjilttai",
+          products: filteredObject,
+        });
+      }
+    );
+  });
+
+  app.put("/products", (request, response) => {
+    const body = request.body;
+
+    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
+      if (readError) {
+        response.json({
+          status: "file reader error",
+          products: [],
+        });
+      }
+
+      const savedData = JSON.parse(readData);
+
+      const changedData = savedData.map((d) => {
+        if (d.id === body.id) {
+          (d.name = body.name),
+            (d.price = body.price),
+            (d.stock = body.stock),
+            (d.size = body.size),
+            (d.color = body.color),
+            (d.category = body.category),
+            (d.description = body.description);
+        }
+        return d;
+      });
+
+      fs.writeFile(
+        "./public/data/products.json",
+        JSON.stringify(changedData),
+        (writeError) => {
+          if (writeError) {
+            response.json({
+              status: "error during write file",
+              products: [],
+            });
+          }
+          response.json({
+            status: "Amjilttai",
+            products: changedData,
+          });
+        }
+      );
+    });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
