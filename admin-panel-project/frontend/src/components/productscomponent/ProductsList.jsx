@@ -11,22 +11,22 @@ import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined"
 
 
 
-export default function ProductList({userProductData, SetUserProductData}) {
-  const URL = "http://localhost:8080/users";
+export default function ProductList({userProductData, setUserProductData}) {
+  const URL = "http://localhost:8080/products";
 
   useEffect(() => {
     fetchAllData();
   }, []);
 
    async function fetchAllData () {
-    const FETCHED_DATA = await fetch("http://localhost:8080/users");
+    const FETCHED_DATA = await fetch("http://localhost:8080/products");
     const FETCHED_JSON = await FETCHED_DATA.json();
-    SetUserProductData(FETCHED_JSON.products);
+    setUserProductData(FETCHED_JSON.products);
     console.log(FETCHED_JSON);
    } 
 
-   async function handleDelete(userId) {
-    deleteUser(userId, SetUserProductData, URL)
+   async function handleDelete(productId) {
+    deleteUser(productId, setUserProductData, URL)
    }
 
 

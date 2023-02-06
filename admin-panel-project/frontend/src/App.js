@@ -29,8 +29,8 @@ function App() {
           path="/product"
           element={
             <Product
-              userData={userProductData}
-              setUserData={setUserProductData}
+              userProductData={userProductData}
+              setUserProductData={setUserProductData}
             />
           }
         />
@@ -38,8 +38,8 @@ function App() {
           path="product/newproduct"
           element={
             <CreateProduct
-              userData={userProductData}
-              setUserData={setUserProductData}
+              userProductData={userProductData}
+              setUserProductData={setUserProductData}
             />
           }
         />

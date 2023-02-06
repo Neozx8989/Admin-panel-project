@@ -8,8 +8,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function NewProduct({userProductData, SetUserProductData}) {
-  const POST_DATA_URL = "http://localhost:8080/users";
+export default function NewProduct({userProductData, setUserProductData}) {
+  const POST_DATA_URL = "http://localhost:8080/products";
   const [ formValue, setFormValue] = useState({name:"", price:"", stock:"", size:"", color:"", category:"", description:""});
   const [open, setOpen] = React.useState(false);
   const [check, setCheck] = React.useState("No");
@@ -53,7 +53,7 @@ export default function NewProduct({userProductData, SetUserProductData}) {
     }
     const FETCHED_DATA = await fetch(POST_DATA_URL, res);
     const FETCHED_JSON = await FETCHED_DATA.json()
-    SetUserProductData(FETCHED_JSON.data);
+    setUserProductData(FETCHED_JSON.data);
   };
 
         return (
