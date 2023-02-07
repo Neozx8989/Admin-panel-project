@@ -52,7 +52,7 @@ export default function NewProduct({userProductData, setUserProductData}) {
   };
 
         return (
-            <Container sx={{boxShadow:"2px 2px 9px rgba(0, 0, 0, 0.5)", padding:"30px", borderRadius:"7px", marginTop:"60px", width:"700px"}}>
+            <Container sx={{boxShadow:"2px 2px 5px rgba(0, 0, 0, 0.5)", padding:"30px", borderRadius:"7px", width:"700px"}}>
                 <h2>Create New Product</h2>
                 <br/>
                 <form onSubmit={handleSubmit}>

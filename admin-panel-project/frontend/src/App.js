@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <Home/>
+      <Home />
       <Routes>
         <Route
           path="/user"
@@ -24,7 +24,7 @@ function App() {
           path="user/newuser"
           element={<NewUsers userData={userData} setUserData={setUserData} />}
         />
-        <Route path="user/edituser" element={<EditUser/>} />
+        <Route path="user/edituser" element={<EditUser />} />
         <Route
           path="/product"
           element={

@@ -58,7 +58,7 @@ export default function ProductList({userProductData, setUserProductData}) {
         },
       ];
     return (
-    <Box style={{width: '1200px', margin: '0 auto', padding: "20px", borderRadius: '7px', }}>
+    <Box style={{width: '1200px', margin: '0 auto', padding: "20px", borderRadius: '7px', boxShadow:"2px 2px 5px rgba(0, 0, 0, 0.5)"}}>
         <p style={{color: 'gray', fontSize: '24px', marginBottom: '10px'}}>Product List</p>
           <Stack spacing={2} direction="row" style={{ marginBottom: '30px', display: 'flex', justifyContent:"space-between"}}>
             <Link to={"newproduct"}><Button variant="contained"> create product</Button></Link>

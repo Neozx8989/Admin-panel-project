@@ -27,7 +27,7 @@ export default function Home() {
     setOpen(!open);
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" , paddingTop:"110px"}}>
       <CssBaseline />
       <AppBar
         position="fixed"
