@@ -31,16 +31,8 @@ app.get("/users", (request, response) => {
 });
 
 app.post("/users", (request, response) => {
-  const newUser = {
-    id: Date.now().toString(),
-    firstname: request.body.firstname,
-    lastname: request.body.lastname,
-    number: request.body.number,
-    email: request.body.email,
-    role: request.body.role,
-    disabled: request.body.disabled,
-    avatar: request.body.avatar,
-  };
+  const body = request.body;
+  console.log(body);
   fs.readFile("./public/data/users.json", "utf-8", (readError, readData) => {
     // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
     if (readError) {
@@ -49,23 +41,42 @@ app.post("/users", (request, response) => {
         users: [],
       });
     }
+
     const dataObject = JSON.parse(readData);
-    dataObject.push(newUser);
     console.log(dataObject);
 
-    fs.writeFile(
+    fs.readFile(
       "./public/data/users.json", // zaawal public dotor data dotor users gdg json bga gdgig zaaj uguh ystoi !!!
-      JSON.stringify(dataObject),
-      (writeError) => {
-        if (writeError) {
+      (readError) => {
+        if (readError) {
           response.json({
             status: "Error during file write",
             users: [],
           });
         }
-        response.json({
-          status: "amjilttai",
-          users: dataObject,
+
+        const roleData = JSON.parse(readData); // parse ashiglan object bolgoj bga
+        const roleName = roleData.filter((role) => role.id === body.role)[0];
+
+        const newUser = {
+          id: Date.now().toString(),
+          firstname: request.body.firstname,
+          lastname: request.body.lastname,
+          number: request.body.number,
+          email: request.body.email,
+          role: roleName,
+        };
+        dataObject.push(newUser);
+        fs.writeFile("./public/data/users.json", (writeError) => {
+          if (writeError) {
+            response.json({
+              status: "Aldaa garlaa JSON FILE zuruud bn",
+            });
+          }
+          response.json({
+            status: "amjilttai",
+            users: dataObject,
+          });
         });
       }
     );
@@ -246,45 +257,67 @@ app.delete("/products", (request, response) => {
   app.put("/products", (request, response) => {
     const body = request.body;
 
-    fs.readFile("./public/data/products.json", "utf-8", (readError, readData) => {
-      if (readError) {
-        response.json({
-          status: "file reader error",
-          products: [],
-        });
-      }
-
-      const savedData = JSON.parse(readData);
-
-      const changedData = savedData.map((d) => {
-        if (d.id === body.id) {
-          (d.name = body.name),
-            (d.price = body.price),
-            (d.stock = body.stock),
-            (d.size = body.size),
-            (d.color = body.color),
-            (d.category = body.category),
-            (d.description = body.description);
-        }
-        return d;
-      });
-
-      fs.writeFile(
-        "./public/data/products.json",
-        JSON.stringify(changedData),
-        (writeError) => {
-          if (writeError) {
-            response.json({
-              status: "error during write file",
-              products: [],
-            });
-          }
+    fs.readFile(
+      "./public/data/products.json",
+      "utf-8",
+      (readError, readData) => {
+        if (readError) {
           response.json({
-            status: "Amjilttai",
-            products: changedData,
+            status: "file reader error",
+            products: [],
           });
         }
-      );
+
+        const savedData = JSON.parse(readData);
+
+        const changedData = savedData.map((d) => {
+          if (d.id === body.id) {
+            (d.name = body.name),
+              (d.price = body.price),
+              (d.stock = body.stock),
+              (d.size = body.size),
+              (d.color = body.color),
+              (d.category = body.category),
+              (d.description = body.description);
+          }
+          return d;
+        });
+
+        fs.writeFile(
+          "./public/data/products.json",
+          JSON.stringify(changedData),
+          (writeError) => {
+            if (writeError) {
+              response.json({
+                status: "error during write file",
+                products: [],
+              });
+            }
+            response.json({
+              status: "Amjilttai",
+              products: changedData,
+            });
+          }
+        );
+      }
+    );
+  });
+});
+
+// =========== API get all user ROLES =========
+app.get("/users/roles", (request, response) => {
+  fs.readFile("./data/userrole.json", "utf-8", (readError, readData) => {
+    if (readError) {
+      response.json({
+        status: "ymr negen alda garlaa!!!",
+        data: [],
+      });
+    }
+    const dataObject = JSON.parse(readData);
+
+    response.json({
+      status: "Success",
+      data: dataObject,
     });
   });
 });
